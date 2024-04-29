@@ -1,9 +1,8 @@
 "use client";
 
-import { Dialog, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogHeader, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { TransactionType } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
 import {
   CreateTransactionSchema,
@@ -19,6 +18,8 @@ import {
   Form,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import CategoryPicker from "@/app/(dashboard)/_components/CategoryPicker";
+import { useCallback } from "react";
 interface Props {
   trigger: React.ReactNode;
   type: TransactionType;
@@ -32,6 +33,10 @@ export default function CreateTransactionDialog({ trigger, type }: Props) {
       date: new Date(),
     },
   });
+  
+  const handleCategoryChange = useCallback((value: string) => {
+    form.setValue("category",value)
+  },[form])
 
   return (
     <Dialog>
@@ -84,7 +89,6 @@ export default function CreateTransactionDialog({ trigger, type }: Props) {
                 </FormItem>
               )}
             />
-
             <div className="flex items-center justify-between gap-2">
               <FormField
                 control={form.control}
@@ -93,7 +97,7 @@ export default function CreateTransactionDialog({ trigger, type }: Props) {
                   <FormItem>
                     <FormLabel>Category</FormLabel>
                     <FormControl>
-                      <Input defaultValue={0} type="number" {...field} />
+                      <CategoryPicker type={type} onChange={handleCategoryChange}/>
                     </FormControl>
                     <FormDescription>
                       Select a category for this transaction

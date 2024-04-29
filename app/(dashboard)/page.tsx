@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import CreateTransactionDialog from "./_components/CreateTransactionDialog";
+import CreateTransactionDialog from "@/app/(dashboard)/_components/CreateTransactionDialog";
 
 export default async function page() {
   const user = await currentUser();
