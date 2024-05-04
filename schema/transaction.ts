@@ -8,4 +8,6 @@ export const CreateTransactionSchema = z.object({
   type: z.union([z.literal("income"), z.literal("expense")]),
 });
 
-export type CreateTransactionType = z.infer<typeof CreateTransactionSchema>;
+export type CreateTransactionSchemaType = z.infer<
+  typeof CreateTransactionSchema
+>;
